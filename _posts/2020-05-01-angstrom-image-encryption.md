@@ -11,7 +11,8 @@ This was a fun one, it required me to annotate the source code and figure out a 
 
 ## TL;DR
 
-![](/assets/img/angstrom/enc.png)
+![encrypted image](/assets/images/angstrom/enc.png)
+
 
 The file image-encryption.py is opening a target image file, in this case, img.png.
 
