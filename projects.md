@@ -15,6 +15,8 @@ During this time of uncertainty in 2020 due to the global outbreak of COVID-19, 
 
 ## Magic Mirror
 
+![](/assets/img/projects/magicmirrorfrontside2.JPG)
+
 | Components used | Purpose | 
 | - | - |
 | Raspberry Pi Zero W | Single Board Computer | 
@@ -24,11 +26,9 @@ During this time of uncertainty in 2020 due to the global outbreak of COVID-19, 
 | 7 sticky pads | Hang entire thing off stand | 
 | Korean Red Ginseng Box | Wooden stand w/ stain | 
 
-![](/assets/img/projects/magicmirrorfrontside2.JPG)
-
 ## Fire Tablet Clock
 
-![](/assets/img/projects/magicmirrorfrontside2.JPG)
+![](/assets/img/projects/final.JPG)
 
 | Components used | Purpose | 
 | - | - |
@@ -36,6 +36,9 @@ During this time of uncertainty in 2020 due to the global outbreak of COVID-19, 
 | 4 sticky pads | To stick the tablet to the wall | 
 
 ## Lily58
+
+![](/assets/img/projects/lily58eagle.JPG)
+![](/assets/img/projects/lily58close.JPG)
 
 | Components used | Purpose | 
 | - | - | 
@@ -46,7 +49,6 @@ During this time of uncertainty in 2020 due to the global outbreak of COVID-19, 
 | 58x diodes | Ensure that switch input goes one way only | 
 | 58x hot-swap sockets | Allows for switches to be replaced in future |
 
-![](/assets/img/projects/final.jpg)
 
 
 
