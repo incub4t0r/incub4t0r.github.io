@@ -12,6 +12,7 @@ During this time of uncertainty in 2020 due to the global outbreak of COVID-19, 
 * [Repurposing a Fire Tablet as a permanent clock](#Fire-Tablet-Clock)
 * [Pi Magic Mirror](#Magic-Mirror) 
 * [Lily58 Split Ergo Mech Keyboard](#Lily58)
+* [LAMP Stack in Docker](#LAMP-Stack-in-Docker)
 
 ## Magic Mirror
 
@@ -54,6 +55,12 @@ My father wanted a simple app that was capable of functioning as a clock and wea
 | 58x hot-swap sockets | Allows for switches to be replaced in future |
 
 Mechanical keyboards fascinate me, as well as ergonomic design, so I decided to spend some time to building my first orthogonal split mech keyboard.
+
+
+## LAMP Stack in Docker
+
+In preparations for SIGSAC lessons (shameless plug, go check out West Point SIGSAC), I was tasked with creating an SQL injection vulnerable login. I was also learning docker at the time, so I thought, "Should be fairly easy to setup a LAMP stack in docker, why not try it for sh*ts and giggles," and so I did. To be honest, I do think this method of creating a vulnerable web server is great at moving between host machines with the ability to fix any issues with a simple reboot.\
+I currently don't have a finished writeup for this project yet, but I will try to get it completed during the academic year. 
 
 # Regular Projects
 
