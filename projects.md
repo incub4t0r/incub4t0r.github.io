@@ -40,7 +40,7 @@ I wanted a little desk clock that could show a couple upcoming calendar events a
 My father wanted a simple app that was capable of functioning as a clock and weather station, as well as a couple news clips. For this I used Android Studio to create a simple visual interface, using the openweathermap api and newsapi to grab the weather and top headlines every 4 hours. 
 
 ## Lily58
-<p align="center"><img src="assets/img/projects/lily58eagle.JPG" height="400"><img src="assets/img/projects/lily58close.JPG" height="400"></p>
+<p align="center"><img src="/assets/img/projects/lily58eagle.JPG" height="400"><img src="/assets/img/projects/lily58close.JPG" height="400"></p>
 
 | Components used | Purpose | 
 | - | - | 
