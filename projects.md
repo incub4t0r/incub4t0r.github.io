@@ -40,7 +40,9 @@ I wanted a little desk clock that could show a couple upcoming calendar events a
 My father wanted a simple app that was capable of functioning as a clock and weather station, as well as a couple news clips. For this I used Android Studio to create a simple visual interface, using the openweathermap api and newsapi to grab the weather and top headlines every 4 hours. 
 
 ## Lily58
-<p align="center"><img src="/assets/img/projects/lily58eagle.JPG" height="400"><img src="/assets/img/projects/lily58close.JPG" height="400"></p>
+
+![](/assets/img/projects/lily58eagle.JPG)
+![](/assets/img/projects/lily58close.JPG)
 
 | Components used | Purpose | 
 | - | - | 
@@ -51,7 +53,7 @@ My father wanted a simple app that was capable of functioning as a clock and wea
 | 58x diodes | Ensure that switch input goes one way only | 
 | 58x hot-swap sockets | Allows for switches to be replaced in future |
 
-Mechanical keyboards fascinate me, as well as ergonomic design, so I decided to spend some time to building my first orthogonal split mech keyboard. 
+Mechanical keyboards fascinate me, as well as ergonomic design, so I decided to spend some time to building my first orthogonal split mech keyboard.
 
 # Regular Projects
 
