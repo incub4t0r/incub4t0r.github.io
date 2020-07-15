@@ -9,7 +9,45 @@ title: Projects
 
 During this time of uncertainty in 2020 due to the global outbreak of COVID-19, I took some time to focus on some projects that I always wanted to complete. Listed below are the projects.
 
+* [Repurposing a Fire Tablet as a permanent clock](#Fire-Tablet-Clock)
+* [Pi Magic Mirror](#Magic-Mirror) 
+* [Lily58 Split Ergo Mech Keyboard](#Lily58)
+
+## Magic Mirror
+
+| Components used | Purpose | 
+| - | - |
+| Raspberry Pi Zero W | Single Board Computer | 
+| KeDei 3.5" RPI screen | Main Display| 
+| Wireless Keyboard w/ receiver | Debugging a couple issues with chromium | 
+| 6ft Micro USB | Power |
+| 7 sticky pads | Hang entire thing off stand | 
+| Korean Red Ginseng Box | Wooden stand w/ stain | 
+
+![](/assets/img/projects/magicmirrorfrontside2.JPG)
+
+## Fire Tablet Clock
+
+![](/assets/img/projects/magicmirrorfrontside2.JPG)
+
+| Components used | Purpose | 
+| - | - |
+| Amazon Fire Tablet 7" | Main Display | 
+| 4 sticky pads | To stick the tablet to the wall | 
+
+## Lily58
+
+| Components used | Purpose | 
+| - | - | 
+| Lily58 pcb from KeyHive | Keyboard base | 
+| Kailh low-profile brown switches | Keyboard switches | 
+| 2x OLED modules | Screens for keyboard | 
+| 2x Arduino Pro Micro | Interfacing the keyboard to computer | 
+| 58x diodes | Ensure that switch input goes one way only | 
+| 58x hot-swap sockets | Allows for switches to be replaced in future |
+
 ![](/assets/img/projects/final.jpg)
+
 
 
 
