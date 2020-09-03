@@ -5,11 +5,12 @@ title: About me
 ---
 
 My name? 
-- 43y3s (four eyes)
+- 43y3s (four eyes) 
+- incub4t0r (github)
 
 About me?
 - Student
-- Computer Science major + Robotics minor
+- Computer Science major
 - Cadet Competitive Cyber Team (C3T)
 
 What is this website?
