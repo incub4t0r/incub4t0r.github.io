@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Tags | foursight</title>
+<title>CSAW | foursight</title>
 <meta name="keywords" content="" />
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="https://incub4t0r.github.io/tags/" />
+<link rel="canonical" href="https://incub4t0r.github.io/tags/csaw/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.6f60056d44d3f7eb69a4bc6c332b59960f3a995802bded244750232f33713c49.css" integrity="sha256-b2AFbUTT9&#43;tppLxsMytZlg86mVgCve0kR1AjLzNxPEk=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://incub4t0r.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://incub4t0r.github.io/favicon-16x16.png">
@@ -19,7 +19,7 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <meta name="generator" content="Hugo 0.89.1" />
-<link rel="alternate" type="application/rss+xml" href="https://incub4t0r.github.io/tags/index.xml">
+<link rel="alternate" type="application/rss+xml" href="https://incub4t0r.github.io/tags/csaw/index.xml">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,13 +56,13 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="Tags" />
+</noscript><meta property="og:title" content="CSAW" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://incub4t0r.github.io/tags/" />
+<meta property="og:url" content="https://incub4t0r.github.io/tags/csaw/" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tags"/>
+<meta name="twitter:title" content="CSAW"/>
 <meta name="twitter:description" content=""/>
 
 </head>
@@ -114,7 +114,7 @@
             </li>
             <li>
                 <a href="https://incub4t0r.github.io/tags/" title="Tags">
-                    <span class="active">Tags</span>
+                    <span>Tags</span>
                 </a>
             </li>
             <li>
@@ -130,58 +130,39 @@
         </ul>
     </nav>
 </header>
-<main class="main">
+<main class="main"> 
 <header class="page-header">
-    <h1>Tags</h1>
+  <h1>CSAW</h1>
 </header>
 
-<ul class="terms-tags">
-    <li>
-        <a href="https://incub4t0r.github.io/tags/acictf/">acictf <sup><strong><sup>2</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/angstromctf/">angstromCTF <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/binex/">binex <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/c/">c <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/csaw/">CSAW <sup><strong><sup>2</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/css/">css <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/ctf/">ctf <sup><strong><sup>4</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/encryption/">encryption <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/flask/">flask <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/htb/">htb <sup><strong><sup>3</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/html/">html <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/javascript/">javascript <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/ncl/">NCL <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/python/">python <sup><strong><sup>5</sup></strong></sup> </a>
-    </li>
-    <li>
-        <a href="https://incub4t0r.github.io/tags/web/">web <sup><strong><sup>1</sup></strong></sup> </a>
-    </li>
-</ul>
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>ninja
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>TL;DR Found out site had xss, also had ssti, blocks :- _ ,config ,os, RUNCMD, base, use request arguments to create variables and pass them in outside the raw string.
+Givens Hey guys come checkout this website i made to test my ninja-coding skills.
+http://web.chal.csaw.io:5000/
+Work Initial Enumeration  Found that the site has xss Attempted to dump cookie  &lt;img src=x onerror=this.src=‘http://web.chal.csaw.io:5000/submit?=&#39;&#43;document.cookie&gt;   We know that we can put html inside running flask, python 2....</p>
+  </section>
+  <footer class="entry-footer"><span title='2021-09-12 17:05:44 -0400 EDT'>September 12, 2021</span></footer>
+  <a class="entry-link" aria-label="post link to ninja" href="https://incub4t0r.github.io/posts/ninja/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Weak Password
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>I realize in hindsight that I should’ve used a hash cracker like hashcat or john, but my knowledge at the time was limited so I ended up using python to generate a couple hundred hashes. I’ll do better next time.
+TL;DR Scripted trying out every date from 1900-2021 appended to the front and back of aaron in the format of YYYYMMDD.
+Givens Can you crack Aaron’s password hash? He seems to like simple passwords....</p>
+  </section>
+  <footer class="entry-footer"><span title='2021-09-12 17:05:44 -0400 EDT'>September 12, 2021</span></footer>
+  <a class="entry-link" aria-label="post link to Weak Password" href="https://incub4t0r.github.io/posts/weakpassword/"></a>
+</article>
     </main>
     
 <footer class="footer">

@@ -180,7 +180,7 @@ todo: post writeups for [discord bot, isitinstock, skyconbp, htmlbp]</p>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>Remote Control - NCL Team
+    <h2>Remote Control
     </h2>
   </header>
   <section class="entry-content">
@@ -190,7 +190,36 @@ Givens We recently obtained a dump of the IR protocol used to control an LG tele
  What is the protocol that is being used? What is the device ID of the device being captured?...</p>
   </section>
   <footer class="entry-footer"><span title='2021-11-07 17:05:44 -0400 -0400'>November 7, 2021</span></footer>
-  <a class="entry-link" aria-label="post link to Remote Control - NCL Team" href="https://incub4t0r.github.io/posts/remotecontrol/"></a>
+  <a class="entry-link" aria-label="post link to Remote Control" href="https://incub4t0r.github.io/posts/remotecontrol/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>ninja
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>TL;DR Found out site had xss, also had ssti, blocks :- _ ,config ,os, RUNCMD, base, use request arguments to create variables and pass them in outside the raw string.
+Givens Hey guys come checkout this website i made to test my ninja-coding skills.
+http://web.chal.csaw.io:5000/
+Work Initial Enumeration  Found that the site has xss Attempted to dump cookie  &lt;img src=x onerror=this.src=‘http://web.chal.csaw.io:5000/submit?=&#39;&#43;document.cookie&gt;   We know that we can put html inside running flask, python 2....</p>
+  </section>
+  <footer class="entry-footer"><span title='2021-09-12 17:05:44 -0400 EDT'>September 12, 2021</span></footer>
+  <a class="entry-link" aria-label="post link to ninja" href="https://incub4t0r.github.io/posts/ninja/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Weak Password
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>I realize in hindsight that I should’ve used a hash cracker like hashcat or john, but my knowledge at the time was limited so I ended up using python to generate a couple hundred hashes. I’ll do better next time.
+TL;DR Scripted trying out every date from 1900-2021 appended to the front and back of aaron in the format of YYYYMMDD.
+Givens Can you crack Aaron’s password hash? He seems to like simple passwords....</p>
+  </section>
+  <footer class="entry-footer"><span title='2021-09-12 17:05:44 -0400 EDT'>September 12, 2021</span></footer>
+  <a class="entry-link" aria-label="post link to Weak Password" href="https://incub4t0r.github.io/posts/weakpassword/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -237,6 +266,20 @@ TL;DR User: OpenBSD box has ssh and http available, used gobuster and found nano
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2>All Your Base Are Belong To Us
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>This problem cost me 5 years of my life. It shouldn’t have been this hard, but here we go.
+TL;DR When you netcat to the provided web address, you are given this output.
+ This program is going to ask you to convert among 6 different bases a total of 5 times. Each question is placed inside of lines delimited by 78&#39;-&#39; characters. The first line of each question indicates the base we aregiving to you as well as the base we expect the result in and looks like:[src_base] -&gt; [answer base]The next line of the question is the source text that we want you to convertinto the new base....</p>
+  </section>
+  <footer class="entry-footer"><span title='2020-06-13 17:05:44 -0400 EDT'>June 13, 2020</span></footer>
+  <a class="entry-link" aria-label="post link to All Your Base Are Belong To Us" href="https://incub4t0r.github.io/posts/allyourbasebelongtous/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2>Resolute - HackTheBox
     </h2>
   </header>
@@ -267,7 +310,7 @@ The source code given outlines the integer vulnerability of C programming, where
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>angstromCTF - Image Encryption
+    <h2>Image Encryption
     </h2>
   </header>
   <section class="entry-content">
@@ -276,21 +319,13 @@ TL;DR The file image-encryption.py is opening a target image file, in this case,
 The program then creates an array of the pixels that the image contains, then parses through each pixel. Upon arriving at each pixel, the program then stores into a variable what is assumably the RGB values of each pixel....</p>
   </section>
   <footer class="entry-footer"><span title='2020-05-01 17:05:44 -0400 EDT'>May 1, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to angstromCTF - Image Encryption" href="https://incub4t0r.github.io/posts/angstromimageencryption/"></a>
+  <a class="entry-link" aria-label="post link to Image Encryption" href="https://incub4t0r.github.io/posts/angstromimageencryption/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Binex at ShmooCon
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>At ShmooCon 2020, RET2 Systems was hosting a challenge where they had prototype waterbottles held within a laser system with alarms, run off of a Raspberry Pi. The goal was to access the Raspberry Pi, disable the lasers and alarms, all within their provided Wargames environment.
-Provided with the disassembly, data, source, and python script to run an interactive response, you were left to your own devices to figure out a way to run...</p>
-  </section>
-  <footer class="entry-footer"><span title='2020-04-30 17:05:44 -0400 EDT'>April 30, 2020</span></footer>
-  <a class="entry-link" aria-label="post link to Binex at ShmooCon" href="https://incub4t0r.github.io/posts/schmoocon_ret2systems/"></a>
-</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="https://incub4t0r.github.io/page/2/">Next Page »</a>
+  </nav>
+</footer>
     </main>
     
 <footer class="footer">

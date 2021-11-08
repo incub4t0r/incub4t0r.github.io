@@ -8,12 +8,39 @@
     <language>en-us</language>
     <lastBuildDate>Sun, 07 Nov 2021 17:05:44 -0400</lastBuildDate><atom:link href="https://incub4t0r.github.io/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Remote Control - NCL Team</title>
+      <title>Remote Control</title>
       <link>https://incub4t0r.github.io/posts/remotecontrol/</link>
       <pubDate>Sun, 07 Nov 2021 17:05:44 -0400</pubDate>
       
       <guid>https://incub4t0r.github.io/posts/remotecontrol/</guid>
       <description>My solution to Remote Control on NCL Team 2021</description>
+    </item>
+    
+    <item>
+      <title>ninja</title>
+      <link>https://incub4t0r.github.io/posts/ninja/</link>
+      <pubDate>Sun, 12 Sep 2021 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/ninja/</guid>
+      <description>My solution to ninja, a web challenge for CSAW</description>
+    </item>
+    
+    <item>
+      <title>Weak Password</title>
+      <link>https://incub4t0r.github.io/posts/weakpassword/</link>
+      <pubDate>Sun, 12 Sep 2021 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/weakpassword/</guid>
+      <description>My somewhat &amp;#39;brutish&amp;#39; solution to Weak Password for CSAW2021</description>
+    </item>
+    
+    <item>
+      <title>Image Encryption</title>
+      <link>https://incub4t0r.github.io/posts/angstromimageencryption/</link>
+      <pubDate>Fri, 01 May 2020 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/angstromimageencryption/</guid>
+      <description>Image decryption by bruteforce for the challenge Image Encryption on AngstromCTF</description>
     </item>
     
   </channel>

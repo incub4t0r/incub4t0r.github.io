@@ -5,10 +5,10 @@
     <loc>https://incub4t0r.github.io/categories/</loc>
     <lastmod>2021-11-07T17:05:44-04:00</lastmod>
   </url><url>
-    <loc>https://incub4t0r.github.io/categories/ctf/</loc>
+    <loc>https://incub4t0r.github.io/tags/ctf/</loc>
     <lastmod>2021-11-07T17:05:44-04:00</lastmod>
   </url><url>
-    <loc>https://incub4t0r.github.io/tags/ctf/</loc>
+    <loc>https://incub4t0r.github.io/categories/ctf/</loc>
     <lastmod>2021-11-07T17:05:44-04:00</lastmod>
   </url><url>
     <loc>https://incub4t0r.github.io/</loc>
@@ -25,6 +25,24 @@
   </url><url>
     <loc>https://incub4t0r.github.io/tags/</loc>
     <lastmod>2021-11-07T17:05:44-04:00</lastmod>
+  </url><url>
+    <loc>https://incub4t0r.github.io/tags/csaw/</loc>
+    <lastmod>2021-09-12T17:05:44-04:00</lastmod>
+  </url><url>
+    <loc>https://incub4t0r.github.io/tags/encryption/</loc>
+    <lastmod>2021-09-12T17:05:44-04:00</lastmod>
+  </url><url>
+    <loc>https://incub4t0r.github.io/posts/ninja/</loc>
+    <lastmod>2021-09-12T17:05:44-04:00</lastmod>
+  </url><url>
+    <loc>https://incub4t0r.github.io/tags/python/</loc>
+    <lastmod>2021-09-12T17:05:44-04:00</lastmod>
+  </url><url>
+    <loc>https://incub4t0r.github.io/posts/weakpassword/</loc>
+    <lastmod>2021-09-12T17:05:44-04:00</lastmod>
+  </url><url>
+    <loc>https://incub4t0r.github.io/tags/web/</loc>
+    <lastmod>2021-09-12T17:05:44-04:00</lastmod>
   </url><url>
     <loc>https://incub4t0r.github.io/tags/htb/</loc>
     <lastmod>2021-05-27T07:39:10-04:00</lastmod>
@@ -53,17 +71,17 @@
     <loc>https://incub4t0r.github.io/categories/project/</loc>
     <lastmod>2020-12-30T17:05:44-04:00</lastmod>
   </url><url>
-    <loc>https://incub4t0r.github.io/tags/python/</loc>
-    <lastmod>2020-12-30T17:05:44-04:00</lastmod>
-  </url><url>
     <loc>https://incub4t0r.github.io/posts/openkeys/</loc>
     <lastmod>2020-08-26T13:11:38-04:00</lastmod>
   </url><url>
-    <loc>https://incub4t0r.github.io/posts/resolute/</loc>
+    <loc>https://incub4t0r.github.io/tags/acictf/</loc>
     <lastmod>2020-06-13T17:05:44-04:00</lastmod>
   </url><url>
-    <loc>https://incub4t0r.github.io/tags/acictf/</loc>
-    <lastmod>2020-05-03T17:05:44-04:00</lastmod>
+    <loc>https://incub4t0r.github.io/posts/allyourbasebelongtous/</loc>
+    <lastmod>2020-06-13T17:05:44-04:00</lastmod>
+  </url><url>
+    <loc>https://incub4t0r.github.io/posts/resolute/</loc>
+    <lastmod>2020-06-13T17:05:44-04:00</lastmod>
   </url><url>
     <loc>https://incub4t0r.github.io/posts/binex101/</loc>
     <lastmod>2020-05-03T17:05:44-04:00</lastmod>

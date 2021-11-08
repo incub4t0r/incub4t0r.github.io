@@ -8,12 +8,12 @@
     <language>en-us</language>
     <lastBuildDate>Fri, 01 May 2020 17:05:44 -0400</lastBuildDate><atom:link href="https://incub4t0r.github.io/tags/angstromctf/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>angstromCTF - Image Encryption</title>
+      <title>Image Encryption</title>
       <link>https://incub4t0r.github.io/posts/angstromimageencryption/</link>
       <pubDate>Fri, 01 May 2020 17:05:44 -0400</pubDate>
       
       <guid>https://incub4t0r.github.io/posts/angstromimageencryption/</guid>
-      <description>Image decryption by bruteforce</description>
+      <description>Image decryption by bruteforce for the challenge Image Encryption on AngstromCTF</description>
     </item>
     
   </channel>

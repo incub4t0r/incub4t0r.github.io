@@ -6,7 +6,16 @@
     <description>Recent content in acictf on foursight</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 May 2020 17:05:44 -0400</lastBuildDate><atom:link href="https://incub4t0r.github.io/tags/acictf/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Jun 2020 17:05:44 -0400</lastBuildDate><atom:link href="https://incub4t0r.github.io/tags/acictf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>All Your Base Are Belong To Us</title>
+      <link>https://incub4t0r.github.io/posts/allyourbasebelongtous/</link>
+      <pubDate>Sat, 13 Jun 2020 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/allyourbasebelongtous/</guid>
+      <description>My solution to the All Your Base Are Belong To Us challenge on ACICTF</description>
+    </item>
+    
     <item>
       <title>Binex 101</title>
       <link>https://incub4t0r.github.io/posts/binex101/</link>
