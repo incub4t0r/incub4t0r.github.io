@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>htb on foursight</title>
+    <link>https://incub4t0r.github.io/tags/htb/</link>
+    <description>Recent content in htb on foursight</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 27 May 2021 07:39:10 -0400</lastBuildDate><atom:link href="https://incub4t0r.github.io/tags/htb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tenet - HackTheBox</title>
+      <link>https://incub4t0r.github.io/posts/tenet/</link>
+      <pubDate>Thu, 27 May 2021 07:39:10 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/tenet/</guid>
+      <description>My solve to the Tenet machine on HackTheBox</description>
+    </item>
+    
+    <item>
+      <title>OpenKeyS - HackTheBox</title>
+      <link>https://incub4t0r.github.io/posts/openkeys/</link>
+      <pubDate>Wed, 26 Aug 2020 13:11:38 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/openkeys/</guid>
+      <description>My solve to the OpenKeyS machine on HackTheBox</description>
+    </item>
+    
+    <item>
+      <title>Resolute - HackTheBox</title>
+      <link>https://incub4t0r.github.io/posts/resolute/</link>
+      <pubDate>Sat, 13 Jun 2020 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/resolute/</guid>
+      <description>My solve to the Resolute machine on HackTheBox</description>
+    </item>
+    
+  </channel>
+</rss>

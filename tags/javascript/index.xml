@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>javascript on foursight</title>
+    <link>https://incub4t0r.github.io/tags/javascript/</link>
+    <description>Recent content in javascript on foursight</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 30 Dec 2020 17:05:44 -0400</lastBuildDate><atom:link href="https://incub4t0r.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>malga</title>
+      <link>https://incub4t0r.github.io/posts/malga/</link>
+      <pubDate>Wed, 30 Dec 2020 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/malga/</guid>
+      <description>A simple weather web app</description>
+    </item>
+    
+  </channel>
+</rss>

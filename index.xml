@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>foursight</title>
+    <link>https://incub4t0r.github.io/</link>
+    <description>Recent content on foursight</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 07 Nov 2021 17:05:44 -0400</lastBuildDate><atom:link href="https://incub4t0r.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Remote Control - NCL Team</title>
+      <link>https://incub4t0r.github.io/posts/remotecontrol/</link>
+      <pubDate>Sun, 07 Nov 2021 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/remotecontrol/</guid>
+      <description>My solution to Remote Control on NCL Team 2021</description>
+    </item>
+    
+    <item>
+      <title>Tenet - HackTheBox</title>
+      <link>https://incub4t0r.github.io/posts/tenet/</link>
+      <pubDate>Thu, 27 May 2021 07:39:10 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/tenet/</guid>
+      <description>My solve to the Tenet machine on HackTheBox</description>
+    </item>
+    
+    <item>
+      <title>malga</title>
+      <link>https://incub4t0r.github.io/posts/malga/</link>
+      <pubDate>Wed, 30 Dec 2020 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/malga/</guid>
+      <description>A simple weather web app</description>
+    </item>
+    
+    <item>
+      <title>OpenKeyS - HackTheBox</title>
+      <link>https://incub4t0r.github.io/posts/openkeys/</link>
+      <pubDate>Wed, 26 Aug 2020 13:11:38 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/openkeys/</guid>
+      <description>My solve to the OpenKeyS machine on HackTheBox</description>
+    </item>
+    
+    <item>
+      <title>Resolute - HackTheBox</title>
+      <link>https://incub4t0r.github.io/posts/resolute/</link>
+      <pubDate>Sat, 13 Jun 2020 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/resolute/</guid>
+      <description>My solve to the Resolute machine on HackTheBox</description>
+    </item>
+    
+    <item>
+      <title>Binex 101</title>
+      <link>https://incub4t0r.github.io/posts/binex101/</link>
+      <pubDate>Sun, 03 May 2020 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/binex101/</guid>
+      <description>My solution to the Binary Exploitation 101 challenge on ACICTF</description>
+    </item>
+    
+    <item>
+      <title>angstromCTF - Image Encryption</title>
+      <link>https://incub4t0r.github.io/posts/angstromimageencryption/</link>
+      <pubDate>Fri, 01 May 2020 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/angstromimageencryption/</guid>
+      <description>Image decryption by bruteforce</description>
+    </item>
+    
+    <item>
+      <title>Binex at ShmooCon</title>
+      <link>https://incub4t0r.github.io/posts/schmoocon_ret2systems/</link>
+      <pubDate>Thu, 30 Apr 2020 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/schmoocon_ret2systems/</guid>
+      <description>Ret2Systems Binary Exploitation Challenge</description>
+    </item>
+    
+    <item>
+      <title>About me</title>
+      <link>https://incub4t0r.github.io/aboutme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://incub4t0r.github.io/aboutme/</guid>
+      <description>My name?  f0ur3y3s/43y3s (four eyes) incub4t0r (github)  About me?  Student Computer Science major Cadet Competitive Cyber Team (C3T)  What is this website?  I&amp;rsquo;ll be posting a couple write-ups from CTFs that I particularly enjoyed or learned a lot from. I&amp;rsquo;ll also be posting personal projects that I make.  </description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>https://incub4t0r.github.io/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://incub4t0r.github.io/projects/</guid>
+      <description>Quarantine 2021 Projects In 2021, we continue to physically distance ourselves&amp;hellip; but that just leaves more time for more projects!
+ Updating my Fire Tablet Clock Focus on me! SeQueLservers  Malga    Components used Purpose     Amazon Fire Tablet 7&amp;quot; Main Display   4 sticky pads To stick the tablet to the wall   PythonAnywhere Flask website hosting    I wanted to use the Fire Tablet application I made last year on different devices, so I decided to recreate the entire application!</description>
+    </item>
+    
+  </channel>
+</rss>

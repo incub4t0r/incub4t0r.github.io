@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ctf on foursight</title>
+    <link>https://incub4t0r.github.io/tags/ctf/</link>
+    <description>Recent content in ctf on foursight</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 07 Nov 2021 17:05:44 -0400</lastBuildDate><atom:link href="https://incub4t0r.github.io/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Remote Control - NCL Team</title>
+      <link>https://incub4t0r.github.io/posts/remotecontrol/</link>
+      <pubDate>Sun, 07 Nov 2021 17:05:44 -0400</pubDate>
+      
+      <guid>https://incub4t0r.github.io/posts/remotecontrol/</guid>
+      <description>My solution to Remote Control on NCL Team 2021</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>OpenKeyS - HackTheBox | foursight</title>
+<meta name="keywords" content="htb" />
+<meta name="description" content="My solve to the OpenKeyS machine on HackTheBox">
+<meta name="author" content="">
+<link rel="canonical" href="https://incub4t0r.github.io/posts/openkeys/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.6f60056d44d3f7eb69a4bc6c332b59960f3a995802bded244750232f33713c49.css" integrity="sha256-b2AFbUTT9&#43;tppLxsMytZlg86mVgCve0kR1AjLzNxPEk=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://incub4t0r.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://incub4t0r.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://incub4t0r.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://incub4t0r.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://incub4t0r.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.89.1" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="OpenKeyS - HackTheBox" />
+<meta property="og:description" content="My solve to the OpenKeyS machine on HackTheBox" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://incub4t0r.github.io/posts/openkeys/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-08-26T13:11:38-04:00" />
+<meta property="article:modified_time" content="2020-08-26T13:11:38-04:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="OpenKeyS - HackTheBox"/>
+<meta name="twitter:description" content="My solve to the OpenKeyS machine on HackTheBox"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://incub4t0r.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "OpenKeyS - HackTheBox",
+      "item": "https://incub4t0r.github.io/posts/openkeys/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "OpenKeyS - HackTheBox",
+  "name": "OpenKeyS - HackTheBox",
+  "description": "My solve to the OpenKeyS machine on HackTheBox",
+  "keywords": [
+    "htb"
+  ],
+  "articleBody": "A medium rated box that should have been rated easy\nTL;DR User: OpenBSD box has ssh and http available, used gobuster and found nano .swp file which had username and shellcode. Shellcode hinted at username verification, found OpenBSD login vulnerability online using -schallenge and got Jennifer’s OpenSSH key by adding a cookie as username:jennifer, and logging in again. Saved OpenSSH key as id_rsa within new folder, changed permissions for file, and used ssh with private key to box.\nRoot: The website where I found the -schallenge had a CVE associated with it for privesc, used local privesc program to gain root privileges.\nUser Nmap As with any box, I started with an nmap scan of 10.10.10.199. Since the last writeup, i’ve started using a custom nmap command that uses grc, making all output nicely color-coded. Highly recommend looking into it.\n$ nmap -sCV 10.10.10.199 Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-26 17:02 EDT\rNmap scan report for 10.10.10.199\rHost is up (0.11s latency).\rNot shown: 998 closed ports\rPORT STATE SERVICE VERSION\r22/tcp open ssh OpenSSH 8.1 (protocol 2.0)\r| ssh-hostkey: | 3072 5e:ff:81:e9:1f:9b:f8:9a:25:df:5d:82:1a:dd:7a:81 (RSA)\r| 256 64:7a:5a:52:85:c5:6d:d5:4a:6b:a7:1a:9a:8a:b9:bb (ECDSA)\r|_ 256 12:35:4b:6e:23:09:dc:ea:00:8c:72:20:c7:50:32:f3 (ED25519)\r80/tcp open http OpenBSD httpd\r|_http-title: Site doesn't have a title (text/html).\rService detection performed. Please report any incorrect results at https://nmap.org/submit/ .\rNmap done: 1 IP address (1 host up) scanned in 37.33 seconds\rFrom my nmap scan, we can see that port 22 (ssh) and port 80 (http) are open, so we can attempt at navigating to the website. Navigating to the website shows us a login page for a OpenSSH key retrieval site, and inspecting the website shows us that the login button, username and password field all take actual input. Everything else on the page is a placeholder.\nBased on recommendation from Neon, I started a gobuster scan on the ip address. During corona-cation, I found a repository called SecLists that hosted numerous wordlists that are nicely separated into different categories. IMO, these wordlists are easier to use and better than the default wordlists.\n$ gobuster dir -w ./common.txt -u http://10.10.10.199/ -t 200\r===============================================================\r/css (Status: 301)\r/fonts (Status: 301)\r/images (Status: 301)\r/includes (Status: 301)\r/index.php (Status: 200)\r/index.html (Status: 200)\r/js (Status: 301)\r/vendor (Status: 301)\r===============================================================\rThe gobuster scan finished and returned a couple directories that exist on the webpage. Navigating to each one started to show nothing, until the directory of /includes, which showed two files, auth.php and auth.php.swp. The .swp file immediately caught my attention, because that is the temporary file that the text editor nano or vim creates temporarily then deletes unless an issue occurs. Using wget I downloaded the auth.php.swp file.\n$ wget http://10.10.10.199/includes/auth.php.swp\r$ strings auth.php.swp b0VIM 8.1\rjennifer\ropenkeys.htb\r/var/www/htdocs/includes/auth.php\r3210\r#\"! session_start();\rsession_destroy();\rsession_unset();\rfunction close_session()\r$_SESSION[\"username\"] = $_REQUEST['username'];\r$_SESSION[\"user_agent\"] = $_SERVER['HTTP_USER_AGENT'];\r$_SESSION[\"remote_addr\"] = $_SERVER['REMOTE_ADDR'];\r$_SESSION[\"last_activity\"] = $_SERVER['REQUEST_TIME'];\r$_SESSION[\"login_time\"] = $_SERVER['REQUEST_TIME'];\r$_SESSION[\"logged_in\"] = True;\rfunction init_session()\r}\rreturn False;\r{\relse\r}\r}\rreturn True;\r$_SESSION['last_activity'] = $time;\r// Session is active, update last activity time and return True\r{\relse\r}\rreturn False;\rclose_session();\r{\r($time - $_SESSION['last_activity'])  $session_timeout)\rif (isset($_SESSION['last_activity']) \u0026\u0026 $time = $_SERVER['REQUEST_TIME'];\r// Has the session expired?\r{\rif(isset($_SESSION[\"logged_in\"]))\r// Is the user logged in? session_start();\r// Start the session\r$session_timeout = 300;\r// Session timeout in seconds\rfunction is_active_session()\rreturn $retcode;\rsystem($cmd, $retcode);\r$cmd = escapeshellcmd(\"../auth_helpers/check_auth \" . $username . \" \" . $password);\rfunction authenticate($username, $password)\rFrom reading auth.php.swp, it seems that a user named jennifer on openkeys.htb was editing a file with VIM when presumably an error occured causing the file to be saved in a .swp file. We can see that auth.php verifies if a user is logged in by passing arguments as username and password, and then calls check_auth with shellcode in the following line:\n$cmd = escapeshellcmd(\"../auth_helpers/check_auth \" . $username . \" \" . $password);{function authenticate($username, $password)\rIf there is shellcode running locally, its usually not good (coughcoughtiktokcoughcough), so I attempted to download the check_auth program using wget http://openkeys.htb/auth_helpers/check_auth. Running strings on check_auth provided a healthy heap of no information to me.\n/usr/libexec/ld.so\rOpenBSD\rlibc.so.95.1\r_csu_finish\rexit\r_Jv_RegisterClasses\ratexit\rauth_userokay\r_end\rAWAVAUATSH\rt-E1\rt7E1\rASAWAVAT\rA\\A^A_A[]\rASAWAVP\rA^A_A[]L3\rLinker: LLD 8.0.1\r.interp\r.note.openbsd.ident\r.dynsym\r.gnu.hash\r.hash\r.dynstr\r.rela.dyn\r.rela.plt\r.eh_frame_hdr\r.eh_frame\r.text\r.init\r.fini\r.plt\r.data\r.openbsd.randomdata\r.jcr\r.ctors\r.dtors\r.dynamic\r.got\r.got.plt\r.bss\r.comment\r.symtab\r.shstrtab\r.strtab\rcrt0.c\r___start\rcrtbegin.c\r__CTOR_LIST__\r__DTOR_LIST__\r__EH_FRAME_BEGIN__\r__JCR_LIST__\r__do_fini\r__do_fini.finalized\r__do_init\r__do_init.initialized\r__do_init.object\rtest.c\rcrtend.c\r__csu_do_fini_array\r__init\r__init_array_end\r__init_array_start\r__llvm_retpoline_r11\r__preinit_array_end\r__preinit_array_start\r__retguard_1205\r__start\r_csu_finish\r_start\rexit\rmain\r_Jv_RegisterClasses\r__dso_handle\r__fini\r__fini_array_end\r__fini_array_start\r__guard_local\r__register_frame_info\r__retguard_1471\r__retguard_1773\r__retguard_2473\ratexit\r_GLOBAL_OFFSET_TABLE_\rauth_userokay\r_end\r_DYNAMIC\rNot a big fan of reading what is presumably a C program, so I returned to auth.php.swp and read through it again in case there were any more interesting points. As I mentioned earlier, the shellcode portion passes on username and password which made me wonder if the program is checking if the username:password existed on the box as a user. In that case, we know that the username is jennifer.\nAt this point, I started to google what OpenBSD was, and how I could potentially use a login vulnerability for OpenBSD. The first website on google was from SecPod, where they outlined OpenBSD authentication bypass with local privesc, and CVE-2019-19521 was exactly what I needed.\nCVE-2019-19521 described how the OpenBSD authenication process works, and how it could be bypassed by using -schallenge as the username. I took this to the login page to use -schallenge:fdsafdas as the login, and the response was OpenSSH key not found for user -schallenge\nMy thought that the login username is verified with local users was correct, and we now have new information that the website returns OpenSSH keys if the user exists. All I needed to do now was combine the exploit with a username of jennifer, and appending jennifer to the challenge username did not work. At this point, I was lost for half an hour until I looked at the Official HackTheBox discussion on this machine, and found some interesting comments.\nKarthik0x00\rJuly 28\r@Baud said:\rAlrighty, I found the interesting article and am able to login on the webapp, but now I need to find a way to get the username right to do what the webapp says because it lets me in but it only shows an error... any hints?\rHave you ever ate choco-cookies?\rsn0b4ll\rJuly 28\rThanks for the box, overall good experience even if the start was a bit bumpy 😄\rFor those struggling with the foothold - search for vulns and combine the read with some delicious cookies 😉\rReally nice to work on a BSD box for a change! As many people have said the initial foothold is probably the most difficult part, but there are lots of clues that might help you get on the right path.\rIf you get stuck after finding the finding the vulnerable input, remember that there are several ways to send data to the server.\rI was able to get root, but from some of the comments I'm lead to believe that there is a way to do it with that one really popular exploit tool, but I was unable to do so. If anyone did the privesc that way I would appreciate if you sent me a DM and let me know how (which module etc.).\rFrom the comments, I assumed that cookie manipulation is necessary for login. I found a post on StackOverflow regarding cookie-based authentication, and took away that I should add a cookie with whatever the webpage was accepting as input.\nEarlier we found that the variables username and password were being passed along to the shellcode, so I decided that a cookie named username with the value being jennifer was appropriate, and logged in again as -schallenge:fdsafdsa. Voila, an OpenSSH private key is sitting there like a present on Christmas day.\n-----BEGIN OPENSSH PRIVATE KEY-----\r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\r-----END OPENSSH PRIVATE KEY-----\rNow from here, I’ve done private key ssh with PillowFood before while creating publicly facing boxes, so I knew how to copy and set private ssh keys with the proper permissions. Here’s a link for an article that covers SSH file permissions\nI copied the OpenSSH key to a file named id_rsa, and used chmod 600 id_rsa to set the proper permissions for SSH to use.\nI then ran ssh -i id_rsa jennifer@10.10.10.199, and catted the flag.\nRoot On the same SecPod website, there was a local privesc POC. I wanted to give it a try, but I couldn’t find an actual exploit. After reaching page 3 of google, I found a bash script that utilized the same CVE to gain local privesc.\nCopied the code, pasted into a local file on the machine as exploityeet and ran it using ./exploityeet. This process of privesc will be explained in the What did I learn section of this writeup.\nI now had root access, and catted the flag.\nWhat Did I Learn? Time is money, and money is time. I don’t have enough of either, so this will section will be updated when I have both.\nLinks/Resources    Link Summary     SecPod Authentication bypass using -schallenge and privesc   PacketStorm Authentication bypass using -schallenge and privesc   GitHub (exploit) Privesc exploit using POC   OpenWall login.conf explanation for OpenBSD exploit   Perforce SSH file privileges   StackOverflow Cookie-based authentication   CVE-2019-19520 Local privilege escalation via xlock    ",
+  "wordCount" : "1600",
+  "inLanguage": "en",
+  "datePublished": "2020-08-26T13:11:38-04:00",
+  "dateModified": "2020-08-26T13:11:38-04:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://incub4t0r.github.io/posts/openkeys/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "foursight",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://incub4t0r.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://incub4t0r.github.io/" accesskey="h" title="foursight (Alt + H)">foursight</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://incub4t0r.github.io/categories/" title="Categories">
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://incub4t0r.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://incub4t0r.github.io/projects" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://incub4t0r.github.io/aboutme" title="About me">
+                    <span>About me</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      OpenKeyS - HackTheBox
+    </h1>
+    <div class="post-description">
+      My solve to the OpenKeyS machine on HackTheBox
+    </div>
+    <div class="post-meta"><span title='2020-08-26 13:11:38 -0400 EDT'>August 26, 2020</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#tldr" aria-label="TL;DR">TL;DR</a></li>
+                <li>
+                    <a href="#user" aria-label="User">User</a><ul>
+                        
+                <li>
+                    <a href="#nmap" aria-label="Nmap">Nmap</a></li></ul>
+                </li>
+                <li>
+                    <a href="#root" aria-label="Root">Root</a></li>
+                <li>
+                    <a href="#what-did-i-learn" aria-label="What Did I Learn?">What Did I Learn?</a></li>
+                <li>
+                    <a href="#linksresources" aria-label="Links/Resources">Links/Resources</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>A medium rated box that should have been rated easy</p>
+<h2 id="tldr">TL;DR<a hidden class="anchor" aria-hidden="true" href="#tldr">#</a></h2>
+<p>User: OpenBSD box has ssh and http available, used gobuster and found nano .swp file which had username and shellcode. Shellcode hinted at username verification, found OpenBSD login vulnerability online using <code>-schallenge</code> and got Jennifer&rsquo;s OpenSSH key by adding a cookie as <code>username:jennifer</code>, and logging in again. Saved OpenSSH key as <code>id_rsa</code> within new folder, changed permissions for file, and used ssh with private key to box.</p>
+<p>Root: The website where I found the -schallenge had a CVE associated with it for privesc, used local privesc program to gain root privileges.</p>
+<h2 id="user">User<a hidden class="anchor" aria-hidden="true" href="#user">#</a></h2>
+<h3 id="nmap">Nmap<a hidden class="anchor" aria-hidden="true" href="#nmap">#</a></h3>
+<p>As with any box, I started with an nmap scan of 10.10.10.199. Since the last writeup, i&rsquo;ve started using a custom nmap command that uses <code>grc</code>, making all output nicely color-coded. Highly recommend looking into it.</p>
+<pre tabindex="0"><code>$ nmap -sCV  10.10.10.199 
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-26 17:02 EDT
+Nmap scan report for 10.10.10.199
+Host is up (0.11s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 8.1 (protocol 2.0)
+| ssh-hostkey: 
+|   3072 5e:ff:81:e9:1f:9b:f8:9a:25:df:5d:82:1a:dd:7a:81 (RSA)
+|   256 64:7a:5a:52:85:c5:6d:d5:4a:6b:a7:1a:9a:8a:b9:bb (ECDSA)
+|_  256 12:35:4b:6e:23:09:dc:ea:00:8c:72:20:c7:50:32:f3 (ED25519)
+80/tcp open  http    OpenBSD httpd
+|_http-title: Site doesn't have a title (text/html).
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 37.33 seconds
+</code></pre><p>From my nmap scan, we can see that port 22 (ssh) and port 80 (http) are open, so we can attempt at navigating to the website.
+Navigating to the website shows us a login page for a OpenSSH key retrieval site, and inspecting the website shows us that the login button, username and password field all take actual input. Everything else on the page is a placeholder.</p>
+<p>Based on recommendation from Neon, I started a gobuster scan on the ip address. During corona-cation, I found a repository called SecLists that hosted numerous wordlists that are nicely separated into different categories. IMO, these wordlists are easier to use and better than the default wordlists.</p>
+<pre tabindex="0"><code>$ gobuster dir -w ./common.txt -u http://10.10.10.199/ -t 200
+===============================================================
+/css (Status: 301)
+/fonts (Status: 301)
+/images (Status: 301)
+/includes (Status: 301)
+/index.php (Status: 200)
+/index.html (Status: 200)
+/js (Status: 301)
+/vendor (Status: 301)
+===============================================================
+</code></pre><p>The gobuster scan finished and returned a couple directories that exist on the webpage. Navigating to each one started to show nothing, until the directory of <code>/includes</code>, which showed two files, <code>auth.php</code> and <code>auth.php.swp</code>. The <code>.swp</code> file immediately caught my attention, because that is the temporary file that the text editor nano or vim creates temporarily then deletes unless an issue occurs. Using <code>wget</code> I downloaded the <code>auth.php.swp</code> file.</p>
+<!-- raw HTML omitted -->
+<pre tabindex="0"><code>$ wget http://10.10.10.199/includes/auth.php.swp
+$ strings auth.php.swp 
+b0VIM 8.1
+jennifer
+openkeys.htb
+/var/www/htdocs/includes/auth.php
+3210
+#&quot;! 
+    session_start();
+    session_destroy();
+    session_unset();
+function close_session()
+    $_SESSION[&quot;username&quot;] = $_REQUEST['username'];
+    $_SESSION[&quot;user_agent&quot;] = $_SERVER['HTTP_USER_AGENT'];
+    $_SESSION[&quot;remote_addr&quot;] = $_SERVER['REMOTE_ADDR'];
+    $_SESSION[&quot;last_activity&quot;] = $_SERVER['REQUEST_TIME'];
+    $_SESSION[&quot;login_time&quot;] = $_SERVER['REQUEST_TIME'];
+    $_SESSION[&quot;logged_in&quot;] = True;
+function init_session()
+    }
+        return False;
+    {
+    else
+    }
+        }
+            return True;
+            $_SESSION['last_activity'] = $time;
+            // Session is active, update last activity time and return True
+        {
+        else
+        }
+            return False;
+            close_session();
+        {
+            ($time - $_SESSION['last_activity']) &gt; $session_timeout)
+        if (isset($_SESSION['last_activity']) &amp;&amp; 
+        $time = $_SERVER['REQUEST_TIME'];
+        // Has the session expired?
+    {
+    if(isset($_SESSION[&quot;logged_in&quot;]))
+    // Is the user logged in? 
+    session_start();
+    // Start the session
+    $session_timeout = 300;
+    // Session timeout in seconds
+function is_active_session()
+    return $retcode;
+    system($cmd, $retcode);
+    $cmd = escapeshellcmd(&quot;../auth_helpers/check_auth &quot; . $username . &quot; &quot; . $password);
+function authenticate($username, $password)
+&lt;?php
+</code></pre><!-- raw HTML omitted -->
+<p>From reading <code>auth.php.swp</code>, it seems that a user named <code>jennifer</code> on <code>openkeys.htb</code> was editing a file with VIM when presumably an error occured causing the file to be saved in a <code>.swp</code> file. We can see that <code>auth.php</code> verifies if a user is logged in by passing arguments as <code>username</code> and <code>password</code>, and then calls <code>check_auth</code> with shellcode in the following line:</p>
+<pre tabindex="0"><code>$cmd = escapeshellcmd(&quot;../auth_helpers/check_auth &quot; . $username . &quot; &quot; . $password);{function authenticate($username, $password)
+</code></pre><p>If there is shellcode running locally, its usually not good (coughcough<em>tiktok</em>coughcough), so I attempted to download the <code>check_auth</code> program using <code>wget http://openkeys.htb/auth_helpers/check_auth</code>. Running strings on check_auth provided a healthy heap of no information to me.</p>
+<!-- raw HTML omitted -->
+<pre tabindex="0"><code>/usr/libexec/ld.so
+OpenBSD
+libc.so.95.1
+_csu_finish
+exit
+_Jv_RegisterClasses
+atexit
+auth_userokay
+_end
+AWAVAUATSH
+t-E1
+t7E1
+ASAWAVAT
+A\A^A_A[]
+ASAWAVP
+A^A_A[]L3
+Linker: LLD 8.0.1
+.interp
+.note.openbsd.ident
+.dynsym
+.gnu.hash
+.hash
+.dynstr
+.rela.dyn
+.rela.plt
+.eh_frame_hdr
+.eh_frame
+.text
+.init
+.fini
+.plt
+.data
+.openbsd.randomdata
+.jcr
+.ctors
+.dtors
+.dynamic
+.got
+.got.plt
+.bss
+.comment
+.symtab
+.shstrtab
+.strtab
+crt0.c
+___start
+crtbegin.c
+__CTOR_LIST__
+__DTOR_LIST__
+__EH_FRAME_BEGIN__
+__JCR_LIST__
+__do_fini
+__do_fini.finalized
+__do_init
+__do_init.initialized
+__do_init.object
+test.c
+crtend.c
+__csu_do_fini_array
+__init
+__init_array_end
+__init_array_start
+__llvm_retpoline_r11
+__preinit_array_end
+__preinit_array_start
+__retguard_1205
+__start
+_csu_finish
+_start
+exit
+main
+_Jv_RegisterClasses
+__dso_handle
+__fini
+__fini_array_end
+__fini_array_start
+__guard_local
+__register_frame_info
+__retguard_1471
+__retguard_1773
+__retguard_2473
+atexit
+_GLOBAL_OFFSET_TABLE_
+auth_userokay
+_end
+_DYNAMIC
+</code></pre><p>&lt;/details</p>
+<p>Not a big fan of reading what is presumably a C program, so I returned to <code>auth.php.swp</code> and read through it again in case there were any more interesting points. As I mentioned earlier, the shellcode portion passes on <code>username</code> and <code>password</code> which made me wonder if the program is checking if the username:password existed on the box as a user. In that case, we know that the username is <code>jennifer</code>.</p>
+<p>At this point, I started to google what OpenBSD was, and how I could potentially use a login vulnerability for OpenBSD. The first website on google was from <a href="https://www.secpod.com/blog/openbsd-authentication-bypass-and-local-privilege-escalation-vulnerabilities/">SecPod</a>, where they outlined OpenBSD authentication bypass with local privesc, and CVE-2019-19521 was exactly what I needed.</p>
+<p>CVE-2019-19521 described how the OpenBSD authenication process works, and how it could be bypassed by using <code>-schallenge</code> as the username. I took this to the login page to use <code>-schallenge:fdsafdas</code> as the login, and the response was <code>OpenSSH key not found for user -schallenge</code></p>
+<p>My thought that the login username is verified with local users was correct, and we now have new information that the website returns OpenSSH keys if the user exists. All I needed to do now was combine the exploit with a username of jennifer, and appending jennifer to the challenge username did not work. At this point, I was lost for half an hour until I looked at the Official HackTheBox discussion on this machine, and found some interesting comments.</p>
+<pre tabindex="0"><code>Karthik0x00
+July 28
+
+@Baud said:
+
+    Alrighty, I found the interesting article and am able to login on the webapp, but now I need to find a way to get the username right to do what the webapp says because it lets me in but it only shows an error... any hints?
+
+Have you ever ate choco-cookies?
+</code></pre><pre tabindex="0"><code>sn0b4ll
+July 28
+
+Thanks for the box, overall good experience even if the start was a bit bumpy 😄
+
+For those struggling with the foothold - search for vulns and combine the read with some delicious cookies 😉
+</code></pre><pre tabindex="0"><code>Really nice to work on a BSD box for a change! As many people have said the initial foothold is probably the most difficult part, but there are lots of clues that might help you get on the right path.
+If you get stuck after finding the finding the vulnerable input, remember that there are several ways to send data to the server.
+
+I was able to get root, but from some of the comments I'm lead to believe that there is a way to do it with that one really popular exploit tool, but I was unable to do so. If anyone did the privesc that way I would appreciate if you sent me a DM and let me know how (which module etc.).
+</code></pre><p>From the comments, I assumed that cookie manipulation is necessary for login. I found a <a href="https://stackoverflow.com/questions/17769011/how-does-cookie-based-authentication-work">post</a> on StackOverflow regarding cookie-based authentication, and took away that I should add a cookie with whatever the webpage was accepting as input.</p>
+<p>Earlier we found that the variables <code>username</code> and <code>password</code> were being passed along to the shellcode, so I decided that a cookie named <code>username</code> with the value being <code>jennifer</code> was appropriate, and logged in again as <code>-schallenge:fdsafdsa</code>. Voila, an OpenSSH private key is sitting there like a present on Christmas day.</p>
+<!-- raw HTML omitted -->
+<pre tabindex="0"><code>-----BEGIN OPENSSH PRIVATE KEY-----
+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
+-----END OPENSSH PRIVATE KEY-----
+</code></pre><!-- raw HTML omitted -->
+<p>Now from here, I&rsquo;ve done private key ssh with PillowFood before while creating publicly facing boxes, so I knew how to copy and set private ssh keys with the proper permissions. <a href="https://community.perforce.com/s/article/6210">Here&rsquo;s</a> a link for an article that covers SSH file permissions</p>
+<p>I copied the OpenSSH key to a file named <code>id_rsa</code>, and used <code>chmod 600 id_rsa</code> to set the proper permissions for SSH to use.</p>
+<p>I then ran <code>ssh -i id_rsa jennifer@10.10.10.199</code>, and catted the flag.</p>
+<h2 id="root">Root<a hidden class="anchor" aria-hidden="true" href="#root">#</a></h2>
+<p>On the same SecPod website, there was a local privesc POC. I wanted to give it a try, but I couldn&rsquo;t find an actual exploit. After reaching page 3 of google, I found a <a href="https://raw.githubusercontent.com/bcoles/local-exploits/master/CVE-2019-19520/openbsd-authroot">bash script</a> that utilized the same CVE to gain local privesc.</p>
+<p>Copied the code, pasted into a local file on the machine as <code>exploityeet</code> and ran it using <code>./exploityeet</code>. This process of privesc will be explained in the What did I learn section of this writeup.</p>
+<p>I now had root access, and catted the flag.</p>
+<h2 id="what-did-i-learn">What Did I Learn?<a hidden class="anchor" aria-hidden="true" href="#what-did-i-learn">#</a></h2>
+<p>Time is money, and money is time. I don&rsquo;t have enough of either, so this will section will be updated when I have both.</p>
+<h2 id="linksresources">Links/Resources<a hidden class="anchor" aria-hidden="true" href="#linksresources">#</a></h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Link</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://www.secpod.com/blog/openbsd-authentication-bypass-and-local-privilege-escalation-vulnerabilities/">SecPod</a></td>
+<td>Authentication bypass using <code>-schallenge</code> and privesc</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://packetstormsecurity.com/files/155572/Qualys-Security-Advisory-OpenBSD-Authentication-Bypass-Privilege-Escalation.html">PacketStorm</a></td>
+<td>Authentication bypass using <code>-schallenge</code> and privesc</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://github.com/bcoles/local-exploits">GitHub (exploit)</a></td>
+<td>Privesc exploit using POC</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://www.openwall.com/lists/oss-security/2019/12/04/5">OpenWall</a></td>
+<td>login.conf explanation for OpenBSD exploit</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://community.perforce.com/s/article/6210">Perforce</a></td>
+<td>SSH file privileges</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="https://stackoverflow.com/questions/17769011/how-does-cookie-based-authentication-work">StackOverflow</a></td>
+<td>Cookie-based authentication</td>
+</tr>
+<tr>
+<td style="text-align:left">CVE-2019-19520</td>
+<td>Local privilege escalation via xlock</td>
+</tr>
+</tbody>
+</table>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://incub4t0r.github.io/tags/htb/">htb</a></li>
+    </ul>
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share OpenKeyS - HackTheBox on twitter"
+        href="https://twitter.com/intent/tweet/?text=OpenKeyS%20-%20HackTheBox&amp;url=https%3a%2f%2fincub4t0r.github.io%2fposts%2fopenkeys%2f&amp;hashtags=htb">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share OpenKeyS - HackTheBox on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fincub4t0r.github.io%2fposts%2fopenkeys%2f&amp;title=OpenKeyS%20-%20HackTheBox&amp;summary=OpenKeyS%20-%20HackTheBox&amp;source=https%3a%2f%2fincub4t0r.github.io%2fposts%2fopenkeys%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share OpenKeyS - HackTheBox on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fincub4t0r.github.io%2fposts%2fopenkeys%2f&title=OpenKeyS%20-%20HackTheBox">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share OpenKeyS - HackTheBox on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fincub4t0r.github.io%2fposts%2fopenkeys%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share OpenKeyS - HackTheBox on whatsapp"
+        href="https://api.whatsapp.com/send?text=OpenKeyS%20-%20HackTheBox%20-%20https%3a%2f%2fincub4t0r.github.io%2fposts%2fopenkeys%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share OpenKeyS - HackTheBox on telegram"
+        href="https://telegram.me/share/url?text=OpenKeyS%20-%20HackTheBox&amp;url=https%3a%2f%2fincub4t0r.github.io%2fposts%2fopenkeys%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2021 <a href="https://incub4t0r.github.io/">foursight</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
